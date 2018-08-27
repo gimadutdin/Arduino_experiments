@@ -22,10 +22,16 @@ void write_leds()
 }
 
 void loop() {
-  if (digitalRead(button) == HIGH && millis() - last_press > 200)
+  if (digitalRead(button) == HIGH && press_flag == 0 && millis() - last_press > 150)
   {
     swap_leds();
     write_leds();
+    last_press = millis();
+    press_flag = 1;
+  }
+  if (digitalRead(button) == LOW && press_flag == 1)
+  {
+    press_flag = 0;
     last_press = millis();
   }
 }
